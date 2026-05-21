@@ -49,9 +49,14 @@ export default function AIChat() {
       setMessages(m => [...m, { role:'bot', text: reply }])
     } catch (err) {
       console.error(err)
+      const errMsg = err.message || err.toString() || ""
+      const isLeaked = errMsg.includes("leaked") || errMsg.includes("API key") || errMsg.includes("403") || errMsg.includes("400")
+      
       setMessages(m => [...m, {
-        role:'bot',
-        text: "Sorry, I'm having trouble connecting right now. Please try again in a moment."
+        role: 'bot',
+        text: isLeaked
+          ? "⚠️ [Gemini API Key Error]\nYour API key was flagged as leaked and has been deactivated by Google (common when committed to a public GitHub repo). Please update the VITE_GEMINI_API_KEY value in your local `.env` file with a new key from Google AI Studio."
+          : "Sorry, I'm having trouble connecting right now. Please try again in a moment."
       }])
     } finally {
       setLoading(false)

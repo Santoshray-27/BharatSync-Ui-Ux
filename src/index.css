@@ -1,0 +1,83 @@
+@import './animations.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+html, body, #root { height: 100%; }
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #FAF7F2;
+  color: #0E1116;
+  overflow-x: hidden;
+}
+
+::selection { background: #FF7A1A; color: white; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #FAF7F2; }
+::-webkit-scrollbar-thumb { background: #0E1116; border-radius: 10px; border: 2px solid #FAF7F2; }
+
+@layer components {
+  .container-x   { @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-12; }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium bg-ink text-cream
+           hover:bg-saffron hover:text-white transition-all duration-300;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium border border-ink/15
+           hover:border-ink hover:bg-ink hover:text-cream transition-all duration-300;
+  }
+  .btn-accent {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium bg-saffron text-white
+           hover:bg-ink transition-all duration-300;
+  }
+
+  .card        { @apply rounded-3xl bg-paper border border-line p-7 transition-all duration-300; }
+  .card-hover  { @apply hover:shadow-lift hover:-translate-y-1; }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium
+           bg-paper border border-line text-ash;
+  }
+  .chip-dark   { @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-ink text-cream; }
+
+  .display-serif { font-family: 'Instrument Serif', serif; font-weight: 400; }
+  .h-mega        { @apply display-serif text-mega; }
+  .h-huge        { @apply display-serif text-huge; }
+  .eyebrow       { @apply text-xs uppercase tracking-[0.2em] text-ash font-medium; }
+
+  .section { @apply py-20 lg:py-28; }
+  .divider { @apply border-t border-line; }
+
+  .link-u {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.4s ease;
+  }
+  .link-u:hover { background-size: 100% 1px; }
+}
+
+.tricolor-strip {
+  height: 3px;
+  background: linear-gradient(90deg, #FF7A1A 0 33%, #FFFFFF 33% 66%, #0F8A3C 66% 100%);
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(14,17,22,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14,17,22,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.ring-glow { box-shadow: 0 0 0 1px #E8E4DC, 0 30px 60px -20px rgba(14,17,22,0.25); }
+
+.card-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgba(14,17,22,0.06) 1px, transparent 0);
+  background-size: 16px 16px;
+}

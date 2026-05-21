@@ -1,0 +1,170 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   BharatSync — Pure CSS animations
+   (Framer Motion handles JS-driven; these are for ambient/decorative)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* ── Marquee (seamless infinite scroll, pausable on hover) ── */
+@keyframes bs-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.bs-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: bs-marquee 22s linear infinite;
+  will-change: transform;
+}
+.bs-marquee-wrap:hover .bs-marquee-track {
+  animation-play-state: paused;
+}
+
+/* ── Float (gentle Y bobbing) ── */
+@keyframes bs-float-1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes bs-float-2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes bs-float-3 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.bs-float-1 { animation: bs-float-1 2.5s ease-in-out infinite; will-change: transform; }
+.bs-float-2 { animation: bs-float-2 3.5s ease-in-out infinite; will-change: transform; }
+.bs-float-3 { animation: bs-float-3 4s   ease-in-out infinite; will-change: transform; }
+.bs-float-chat { animation: bs-float-1 3s ease-in-out infinite; will-change: transform; }
+
+/* ── Particle drift (hero blobs) ── */
+@keyframes bs-drift-a {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, -40px) scale(1.1); }
+}
+@keyframes bs-drift-b {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-50px, 50px) scale(1.05); }
+}
+@keyframes bs-drift-c {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 60px) scale(0.95); }
+}
+.bs-drift-a { animation: bs-drift-a 12s ease-in-out infinite alternate; will-change: transform; }
+.bs-drift-b { animation: bs-drift-b 14s ease-in-out infinite alternate; will-change: transform; }
+.bs-drift-c { animation: bs-drift-c 10s ease-in-out infinite alternate; will-change: transform; }
+.bs-drift-d { animation: bs-drift-a  9s ease-in-out infinite alternate; will-change: transform; }
+
+/* ── Typing dots (chat indicator) ── */
+@keyframes bs-typing {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30%           { transform: translateY(-4px); opacity: 1; }
+}
+.bs-typing-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  margin: 0 1.5px;
+  animation: bs-typing 1.2s ease-in-out infinite;
+}
+.bs-typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.bs-typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+/* ── Spinning ring (final CTA) ── */
+@keyframes bs-spin {
+  to { transform: rotate(360deg); }
+}
+.bs-spin-slow { animation: bs-spin 8s linear infinite; will-change: transform; }
+
+/* ── Animated gradient (final CTA bg shifts hue) ── */
+@keyframes bs-shift-grad {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+.bs-gradient-shift {
+  background: linear-gradient(115deg, #FF7A1A 0%, #FF5A00 35%, #FF9633 65%, #FF7A1A 100%);
+  background-size: 200% 200%;
+  animation: bs-shift-grad 6s ease-in-out infinite alternate;
+}
+
+/* ── Rotating conic-gradient border (bento large card) ── */
+@keyframes bs-conic {
+  to { transform: rotate(360deg); }
+}
+.bs-conic-border {
+  position: relative;
+  isolation: isolate;
+}
+.bs-conic-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    #FF7A1A 60deg,
+    transparent 120deg,
+    transparent 240deg,
+    #1B3FA0 300deg,
+    transparent 360deg
+  );
+  animation: bs-conic 4s linear infinite;
+  will-change: transform;
+}
+.bs-conic-border::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: #FFFFFF;
+}
+
+/* ── Subtle dot grid (hero bg) ── */
+.bs-dot-grid {
+  background-image: radial-gradient(rgba(14,17,22,0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ── Grain overlay (CTA, subtle) ── */
+.bs-grain {
+  position: absolute; inset: 0; pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* ── Radial spotlight (steps section behind numbers) ── */
+.bs-spotlight {
+  background: radial-gradient(circle at 50% 30%, rgba(255,122,26,0.08), transparent 70%);
+}
+
+/* ── Hamburger morph (navbar mobile) ── */
+.bs-burger { width: 22px; height: 16px; position: relative; }
+.bs-burger span {
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: currentColor; border-radius: 2px;
+  transition: transform 0.35s cubic-bezier(.2,.7,.2,1), top 0.35s cubic-bezier(.2,.7,.2,1), opacity 0.2s;
+}
+.bs-burger span:nth-child(1) { top: 0; }
+.bs-burger span:nth-child(2) { top: 7px; }
+.bs-burger span:nth-child(3) { top: 14px; }
+.bs-burger.is-open span:nth-child(1) { top: 7px; transform: rotate(45deg); }
+.bs-burger.is-open span:nth-child(2) { opacity: 0; }
+.bs-burger.is-open span:nth-child(3) { top: 7px; transform: rotate(-45deg); }
+
+/* ── Animated nav underline ── */
+.bs-nav-link { position: relative; }
+.bs-nav-link::after {
+  content: ''; position: absolute; left: 14px; right: 14px; bottom: 6px;
+  height: 2px; background: currentColor;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s cubic-bezier(.2,.7,.2,1);
+}
+.bs-nav-link:hover::after,
+.bs-nav-link.is-active::after { transform: scaleX(1); }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   Accessibility — respect reduced motion
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
